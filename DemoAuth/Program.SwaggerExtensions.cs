@@ -12,7 +12,8 @@ namespace DemoAuth
         /// Register swagger output.
         /// </summary>
         /// <param name="services"></param>
-        public static void AddSwaggerGen(this IServiceCollection services)
+        /// <param name="configuration"></param>
+        public static void AddSwaggerGen(this IServiceCollection services, ConfigurationManager configuration)
         {
             services.AddSwaggerGen(c =>
             {
@@ -33,6 +34,38 @@ namespace DemoAuth
 
                 var xmlDocumentation = Path.Combine(AppContext.BaseDirectory, "DemoAuth.xml");
                 c.IncludeXmlComments(xmlDocumentation);
+
+                var authUrl = $"{configuration["Auth:Instance"]}{configuration["Auth:TenantId"]}/oauth2/v2.0";
+                var authorizationUrl = $"{authUrl}/authorize";
+                var tokenUrl = $"{authUrl}/token";
+
+                var scheme = new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri(authorizationUrl),
+                            TokenUrl = new Uri(tokenUrl)
+                        }
+                    },
+                    Type = SecuritySchemeType.OAuth2
+                };
+
+                c.AddSecurityDefinition("OAuth", scheme);
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Id = "OAuth", Type = ReferenceType.SecurityScheme }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
             });
         }
 
@@ -50,6 +83,10 @@ namespace DemoAuth
             {
                 c.SwaggerEndpoint($"/swagger/v1/swagger.json", $"Demo v1");
                 c.RoutePrefix = string.Empty;
+
+                c.OAuthClientId(app.Configuration["Auth:Swagger:ClientId"]);
+                c.OAuthScopes(app.Configuration.GetSection("Auth:Swagger:Scopes").Get<string[]>());
+                c.OAuthUsePkce();
             });
         }
     }

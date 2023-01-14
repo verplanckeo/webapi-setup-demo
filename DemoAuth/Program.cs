@@ -1,6 +1,8 @@
 using Asp.Versioning;
 using DemoAuth;
 using DemoAuth.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -9,7 +11,7 @@ var configuration = builder.Configuration;
 builder.Services.AddScoped<IMovieService, MovieService>();
 
 // register middleware
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(configuration);
 builder.Services.AddApiVersioning(options =>
 {
     options.DefaultApiVersion = new Asp.Versioning.ApiVersion(1.0);
@@ -21,9 +23,12 @@ builder.Services.AddApiVersioning(options =>
 });
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddAuthentication(configuration);
+
 var app = builder.Build();
 
 app.UseSwagger();
 app.MapMoviesEndpoints();
+app.UseAuthenticationAndAuthorization();
 
 app.Run();

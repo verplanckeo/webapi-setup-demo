@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning.Builder;
 using DemoAuth.Services;
-using Microsoft.AspNetCore.Builder;
 
 namespace DemoAuth
 {
