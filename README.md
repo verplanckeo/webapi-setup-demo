@@ -4,3 +4,7 @@ Each chapter is tagged in the branches. This way, in case you wish to go back to
 
 ## 1. Swagger & API Versioning
 [Blog post - Part 1](https://www.itigai.com/post/setup-api-dotnet6-swagger-versioning)
+
+
+## 2. IDP, Authentication and Authorization
+[Blog post - Part 2](https://www.itigai.com/post/setup-api-dotnet6-authentication)
