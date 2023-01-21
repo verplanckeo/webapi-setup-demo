@@ -8,3 +8,6 @@ Each chapter is tagged in the branches. This way, in case you wish to go back to
 
 ## 2. IDP, Authentication and Authorization
 [Blog post - Part 2](https://www.itigai.com/post/setup-api-dotnet6-authentication)
+
+## 3. IDP, B2B Authentication and Authorization
+[Blog post - Part 3](https://www.itigai.com/post/part-3-how-to-setup-a-net-6-0-api-auth-b2b)

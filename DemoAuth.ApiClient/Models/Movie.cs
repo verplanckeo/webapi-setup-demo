@@ -1,4 +1,4 @@
-﻿namespace DemoAuth.Models
+﻿namespace DemoAuth.ApiClient.Models
 {
     /// <summary>
     /// Movie model

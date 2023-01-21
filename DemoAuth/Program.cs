@@ -1,8 +1,6 @@
 using Asp.Versioning;
 using DemoAuth;
 using DemoAuth.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;

@@ -84,6 +84,8 @@ namespace DemoAuth
                 c.SwaggerEndpoint($"/swagger/v1/swagger.json", $"Demo v1");
                 c.RoutePrefix = string.Empty;
 
+                c.EnablePersistAuthorization();
+
                 c.OAuthClientId(app.Configuration["Auth:Swagger:ClientId"]);
                 c.OAuthScopes(app.Configuration.GetSection("Auth:Swagger:Scopes").Get<string[]>());
                 c.OAuthUsePkce();

@@ -10,6 +10,11 @@ namespace DemoAuth
     /// </summary>
     public class ApiVersionOperationFilter : IOperationFilter
     {
+        /// <summary>
+        /// Apply api version behavior for Swagger.
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="context"></param>
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             var actionMetaData = context.ApiDescription.ActionDescriptor.EndpointMetadata;
